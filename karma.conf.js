@@ -10,12 +10,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine-jquery', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'src/coffee',
+      'src/js/index.js',
       'test/*Spec.coffee'
     ],
 
@@ -27,7 +27,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.coffee': ['coffee']
+      'src/js/index.js': ['webpack', 'babel'],
+      '*/*.coffee': ['coffee']
+    },
+    babelPreprocessor: {
+      options: {
+        sourceMap: 'inline'
+      },
+      filename: function (file) {
+        return file.originalPath;
+        //return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function (file) {
+        return file.originalPath;
+      }
     },
 
 
@@ -58,9 +71,19 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    webpack: require('./webpack.config.js'),
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+    plugins: [
+    'karma-jasmine-jquery',
+    'karma-jasmine',
+    'karma-chrome-launcher',
+    'karma-babel-preprocessor',
+    'karma-coffee-preprocessor',
+    require('karma-webpack')
+    ]
   })
 }

@@ -1,6 +1,6 @@
+import React from 'react';
+
 React.render(
-  <h1 id="head">
-    <span>Hello world</span>
-  </h1>,
+  <h2>Hello World from jsx</h2>,
   document.getElementById('app')
 );

@@ -1,19 +1,26 @@
-var template = require('../jade/index.jade');
-
-var str = template({name: 'wangfan'});
-
 import jQuery from 'jquery';
-window.jQuery = jQuery;
+//import React from 'react';
+(function(global){
+  'use strict';
 
-jQuery('body').append(str);
+  global.jQuery = jQuery;
 
-jQuery('title').text('learn webpack');
+  jQuery('title').text('learn webpack');
 
-require('bootstrap');
-require('bootstrap/less/bootstrap.less');
-require('../less/index.less');
+  require('bootstrap');
+  require('bootstrap/less/bootstrap.less');
+  require('../less/index.less');
 
-import React from 'react';
-window.React = React;
+  var template = require('../jade/index.jade');
+  var str = template({name: 'superwf'});
+  jQuery(document.body).append(str);
 
-require('../jsx/header.jsx');
+  //global.React = React;
+
+  require('../jsx/header.jsx');
+
+  var img = document.createElement('img');
+  img.src = require('../img/s.png');
+
+  document.body.appendChild(img);
+})(window || this);
