@@ -4,8 +4,10 @@ describe 'test index', ->
   beforeEach ->
     loadFixtures 'app.html'
 
-  it 'has h2', ->
-    expect(1).toEqual(1)
-    #expect($('body')).toContainText 'wangfan'
+  it 'has #app', ->
     expect(jQuery('title')).toContainText 'learn webpack'
     expect(jQuery('#app')).toExist()
+
+  it 'has #app again', ->
+    expect(jQuery('title')).toContainText 'learn webpack'
+    expect(jQuery('#app')).toContainText 'jsx'

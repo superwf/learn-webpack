@@ -15,9 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // with es5-shim, React work
+      'node_modules/es5-shim/es5-shim.min.js',
+      'test/specHelper.coffee',
       'src/js/app.js',
       'test/*Spec.coffee',
-      {pattern: "test/fixtures/*.html", served: true, included: false, watched: true}
+      {pattern: "test/fixtures/*.html", served: true, included: false, watched: true},
+      {pattern: "public/*.html", served: true, included: false, watched: true}
     ],
 
 
@@ -70,8 +74,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    //browsers: ['PhantomJS'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     webpack: require('./webpack.config.js'),
 
