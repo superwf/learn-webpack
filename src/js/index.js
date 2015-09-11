@@ -8,8 +8,6 @@ import jQuery from 'jquery';
   jQuery('title').text('learn webpack');
 
   require('bootstrap');
-  require('bootstrap/less/bootstrap.less');
-  require('../less/index.less');
 
   var template = require('../jade/index.jade');
   var str = template({name: 'superwf'});

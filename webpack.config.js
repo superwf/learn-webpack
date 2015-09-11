@@ -13,7 +13,7 @@ var plugins = [
     filename: './public/js/vendor.js'
   }),
 
-  new ExtractTextPlugin('[name].css')
+  new ExtractTextPlugin('./public/css/[name].css')
 
 ];
 
@@ -31,8 +31,8 @@ if(env === 'dist') {
 
 module.exports = {
   entry: {
-    app1: './src/js/index.js',
-    app2: './src/js/main.js'
+    app: './src/js/index.js',
+    main: './src/js/main.js'
   },
   output: {
     path: __dirname,
