@@ -56,6 +56,11 @@ module.exports = {
         exclude: /node_modules|bower_components/,
         loader: 'babel',
       },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules|bower_components/,
+        loader: 'eslint',
+      },
       { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css!less' )},
       { test: /\.coffee$/, loader: 'coffee-loader' },
       { test: /\.jade$/, loader: 'jade-loader' },

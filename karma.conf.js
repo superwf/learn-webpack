@@ -82,14 +82,14 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
-    plugins: [
-    'karma-jasmine-jquery',
-    'karma-jasmine',
-    'karma-phantomjs-launcher',
-    'karma-chrome-launcher',
-    'karma-babel-preprocessor',
-    'karma-coffee-preprocessor',
-    require('karma-webpack')
-    ]
+    //plugins: [
+    //'karma-jasmine-jquery',
+    //'karma-jasmine',
+    //'karma-phantomjs-launcher',
+    //'karma-chrome-launcher',
+    //'karma-babel-preprocessor',
+    //'karma-coffee-preprocessor',
+    //require('karma-webpack')
+    //]
   })
 }
