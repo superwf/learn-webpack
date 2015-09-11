@@ -15,8 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/js/index.js',
-      'test/*Spec.coffee'
+      'src/js/app.js',
+      'test/*Spec.coffee',
+      {pattern: "test/fixtures/*.html", served: true, included: false, watched: true}
     ],
 
 
@@ -27,13 +28,13 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/js/index.js': ['webpack', 'babel'],
+      'src/js/*.js': ['webpack', 'babel'],
       '*/*.coffee': ['coffee']
     },
     babelPreprocessor: {
-      options: {
-        sourceMap: 'inline'
-      },
+      //options: {
+      //  sourceMap: 'inline'
+      //},
       filename: function (file) {
         return file.originalPath;
         //return file.originalPath.replace(/\.js$/, '.es5.js');
@@ -69,6 +70,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    //browsers: ['PhantomJS'],
     browsers: ['Chrome'],
 
     webpack: require('./webpack.config.js'),
@@ -80,6 +82,7 @@ module.exports = function(config) {
     plugins: [
     'karma-jasmine-jquery',
     'karma-jasmine',
+    'karma-phantomjs-launcher',
     'karma-chrome-launcher',
     'karma-babel-preprocessor',
     'karma-coffee-preprocessor',

@@ -1,4 +1,4 @@
-import jQuery from 'jquery';
+//import jQuery from 'jquery';
 //import React from 'react';
 (function(global){
   'use strict';
@@ -15,10 +15,10 @@ import jQuery from 'jquery';
 
   //global.React = React;
 
-  require('../jsx/header.jsx');
+  require('../jsx/app.jsx');
 
-  var img = document.createElement('img');
-  img.src = require('../img/s.png');
+  //var img = document.createElement('img');
+  //img.src = require('../img/s.png');
 
-  document.body.appendChild(img);
+  //document.body.appendChild(img);
 })(window || this);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start",
+    "test": "NODE_ENV=test ./node_modules/.bin/karma start",
     "dev": "NODE_ENV=dev webpack-dev-server --devtool eval --progress -c -w",
     "dist": "NODE_ENV=dist webpack"
   },

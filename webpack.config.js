@@ -6,18 +6,27 @@ var plugins = [
   new webpack.ResolverPlugin(
     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main', 'less'])
   ),
-  //new webpack.optimize.CommonsChunkPlugin('./public/js/vendor.js')
 
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: './public/js/vendor.js'
-  }),
+  new ExtractTextPlugin('./public/css/[name].css'),
 
-  new ExtractTextPlugin('./public/css/[name].css')
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    React: 'react'
+  })
 
 ];
 
 var env = process.env.NODE_ENV;
+
+// when useing karma test, CommonsChunkPlugin will cause "ReferenceError: Can't find variable: webpackJsonp"
+// don`t use CommonsChunkPlugin when test
+// it`s mentioned below
+// https://github.com/webpack/karma-webpack/issues/24
+if(env !== 'test') {
+  plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor', './public/js/vendor.js'));
+}
+
 if(env === 'dist') {
   plugins.push(
     new webpack.optimize.UglifyJsPlugin({
@@ -31,8 +40,10 @@ if(env === 'dist') {
 
 module.exports = {
   entry: {
-    app: './src/js/index.js',
-    main: './src/js/main.js'
+    app: './src/js/app.js',
+    main: './src/js/main.js',
+    style: './src/js/style.js',
+    vendor: ['jquery', 'react']
   },
   output: {
     path: __dirname,
@@ -42,7 +53,7 @@ module.exports = {
     loaders: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules|bower_components/,
         loader: 'babel',
       },
       { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css!less' )},
@@ -57,5 +68,8 @@ module.exports = {
   //resolve: {
   //  root: [path.join(__dirname, 'public/js/bower_components')]
   //},
-  plugins: plugins
+  plugins: plugins,
+  //externals: {
+  //  jquery: 'jQuery'
+  //}
 };
