@@ -18,3 +18,8 @@ jQuery.ajax {
     dom.innerHTML = data
     document.body.appendChild dom
 }
+
+# the file should be served in karma config files property
+window.loadScript = (name)->
+  jQuery('body').append("<script src='/base/src/#{name}.js'></script>")
+  return
