@@ -2,3 +2,4 @@ node_modules/
 *.swp
 out
 public/css
+public/js

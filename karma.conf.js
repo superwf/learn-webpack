@@ -82,6 +82,7 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
+    // if define plugins property, karma cannot auto load plugins
     //plugins: [
     //'karma-jasmine-jquery',
     //'karma-jasmine',
@@ -91,5 +92,5 @@ module.exports = function(config) {
     //'karma-coffee-preprocessor',
     //require('karma-webpack')
     //]
-  })
-}
+  });
+};
