@@ -2,10 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './index.js',
+    main: './index.js',
   },
   output: {
     // path: __dirname + '/public/js',
@@ -20,11 +22,6 @@ module.exports = {
   devtool: 'eval-source-map',
 
   module: {
-    preLoaders: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: 'eslint',
-    }],
     loaders: [
       {
         test: /\.(js|jsx)$/,
@@ -32,7 +29,10 @@ module.exports = {
         loader: 'babel',
       },
       { test: /\.json$/, loader: 'json'},
-      { test: /\.less$/, loader: 'style!css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss!less'},
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style', 'css?minimize&modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss!less')
+      },
       { test: /\.jade$/, loader: 'jade-loader' },
       { test: /\.(eot|woff|ttf|svg|woff2)$/, loader: 'url-loader' },
       { test: /\.png$/, loader: 'url-loader?limit=8192',
@@ -40,30 +40,29 @@ module.exports = {
       },
     ]
   },
-  // postcss: [autoprefixer({browsers: ['last 2 versions']})],
-  proxy: {
-    '/smartBus-Manager-v1/*': {
-      target: 'http://10.12.28.64:8085',
-      secure: false
-    }
-  },
-  devServer: {
-    // contentBase: './public/',
-    inline: true,
-    colors: true,
-    // 将所有不存在文件的请求都重新定位到/index.html
-    // 单页应用配置路由功能必备
-    historyApiFallback: true,
-  },
+  postcss: [autoprefixer({browsers: ['last 2 versions']})],
 
   plugins: [
     new HtmlWebpackPlugin({
       inject: 'body',
-      template: './jade/index.jade'
+      template: './jade/index.jade',
+      removeComments: true,
+      collapseWhitespace: true,
     }),
-    new webpack.SourceMapDevToolPlugin({
-      exclude: /node_modules/,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: 'production'
+      }
     }),
-    new webpack.WatchIgnorePlugin([/node_modules/])
+    // 去除重复模块
+    new webpack.optimize.DedupePlugin(),
+    // 将模块按序号顺序排列
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new ExtractTextPlugin('main.css'),
   ],
 };

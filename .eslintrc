@@ -1,49 +1,32 @@
 {
-  "env": {
-    "browser": true
-  },
-  "globals": {
-    "jQuery": true,
-    "React": true,
-    "$": true
-  },
-  "rules": {
-    "brace-style": 2,
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "camelcase": 2,
-    "eqeqeq": 2,
-    "curly": 2,
-    "brace-style": [2, "1tbs"],
-    "quotes": [2, "single"],
-    "semi": [2, "always"],
-    "object-curly-spacing": [2, "never"],
-    "computed-property-spacing": [2, "never"],
-    "array-bracket-spacing": [2, "never"],
-    "space-infix-ops": 2
-  },
   "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true,
-    "jsx": true
-  }
+    "ecmascript": 6,
+    "jsx": true,
+    "modules": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "arrow-parens": [2, "as-needed"],
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "no-undef": [2],
+    "no-unused-vars": [2, {vars: local}],
+    "babel/generator-star-spacing": 1,
+    "babel/new-cap": 1,
+    "babel/object-shorthand": 1,
+    "babel/arrow-parens": 0,
+    "babel/no-await-in-loop": 1,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 0
+  },
+  "plugins": [
+    "babel",
+    "react"
+  ]
 }

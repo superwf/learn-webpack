@@ -1,5 +1,6 @@
 // Karma configuration
-// Generated on Thu Sep 10 2015 09:10:43 GMT+0800 (CST)
+// Generated on Fri Mar 04 2016 09:07:39 GMT+0800 (CST)
+var path = require('path');
 
 module.exports = function(config) {
   config.set({
@@ -10,49 +11,61 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine-jquery', 'jasmine'],
+    frameworks: ['mocha'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      // with es5-shim, React work
-      'node_modules/es5-shim/es5-shim.min.js',
-      'test/specHelper.coffee',
-      'src/js/app.js',
-      'test/*Spec.coffee',
-      {pattern: "test/fixtures/*.html", served: true, included: false, watched: true},
-      {pattern: "public/*.html", served: true, included: false, watched: true}
+      './test/index.js',
     ],
 
 
     // list of files to exclude
-    exclude: [],
+    exclude: [
+    ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/js/*.js': ['webpack', 'babel'],
-      '*/*.coffee': ['coffee']
+      './test/index.js': ['webpack'],
     },
-    babelPreprocessor: {
-      //options: {
-      //  sourceMap: 'inline'
-      //},
-      filename: function (file) {
-        return file.originalPath;
-        //return file.originalPath.replace(/\.js$/, '.es5.js');
+
+    // webpack: require('./webpack.config.js'),
+    webpack: {
+      module: {
+        preLoaders: [
+          {
+            test: /\.js$/,
+            include: path.resolve('lib'),
+            loader: 'babel!isparta',
+          },
+        ],
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+          },
+        ]
       },
-      sourceFileName: function (file) {
-        return file.originalPath;
-      }
+      isparta: {
+        noAutoWrap: true,
+        embedSource: true,
+        babel: {
+          presets: ['es2015', 'react'],
+        },
+      },
+    },
+    webpackMiddleware: {
+      noInfo: true
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
@@ -76,21 +89,20 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
 
-    webpack: require('./webpack.config.js'),
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
-    // if define plugins property, karma cannot auto load plugins
-    //plugins: [
-    //'karma-jasmine-jquery',
-    //'karma-jasmine',
-    //'karma-phantomjs-launcher',
-    //'karma-chrome-launcher',
-    //'karma-babel-preprocessor',
-    //'karma-coffee-preprocessor',
-    //require('karma-webpack')
-    //]
-  });
-};
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity,
+
+    // plugins: [
+    //   require('karma-webpack'),
+    //   require('karma-mocha'),
+    //   require('karma-phantomjs-launcher'),
+    //   require('karma-babel-preprocessor'),
+    // ],
+  })
+}
