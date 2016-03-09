@@ -1,3 +1,5 @@
+require('babel-polyfill');
+require('babel-regenerator-runtime');
 var testContext = require.context('.', true, /.+\Test\.js?$/);
 testContext.keys().forEach(testContext);
 

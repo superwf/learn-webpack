@@ -14,7 +14,7 @@ module.exports = {
   // devtool: 'source-map',
   // 定位到行,但是编译会快
   // devtool: 'cheap-module-source-map',
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
 
   module: {
     preLoaders: [{
