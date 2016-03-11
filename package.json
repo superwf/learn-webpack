@@ -8,7 +8,7 @@
     "dist": "NODE_ENV=production webpack --config ./webpack.config.dist.js --progress",
     "webtest": "NODE_ENV=test webpack-dev-server --config ./webpack.config.test.js",
     "karma": "NODE_ENV=test karma start",
-    "test": "NODE_ENV=test mocha test/**/*Test.js -w -b --compilers js:babel-register"
+    "test": "NODE_ENV=test mocha test/**/*Test.js -w -b --compilers js:babel-register -R nyan"
   },
   "keywords": [
     "xcloud"
@@ -55,6 +55,7 @@
     "mocha-loader": "^0.7.1",
     "nock": "^7.2.2",
     "null-loader": "^0.1.1",
+    "nyan": "^1.0.3",
     "phantomjs": "^2.1.3",
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "^0.8.1",

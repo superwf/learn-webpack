@@ -3,15 +3,16 @@ import expect from 'expect.js';
 import store from '../../lib/store';
 import * as todoAction from '../../lib/actions/todo';
 
-describe('action', () => {
+describe('todo action', () => {
 
-  it('type', (done) => {
+  it('add', async () => {
     let todo = {id: 123, name: ''};
-    todoAction.add(todo).then(result => {
-      let state = store.getState();
-      expect(state.todos[0].id).to.be(todo.id);
-      done();
-    });
+    let state = store.getState();
+    expect(state.todos.length).to.be(0);
+    await todoAction.add(todo);
+
+    state = store.getState();
+    expect(state.todos[0].id).to.be(todo.id);
   });
 
 });
