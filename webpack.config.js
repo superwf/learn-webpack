@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -57,6 +58,7 @@ module.exports = {
   },
 
   plugins: [
+    new NpmInstallPlugin(),
     new HtmlWebpackPlugin({
       inject: 'body',
       template: './jade/index.jade'
